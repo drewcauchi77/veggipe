@@ -14,6 +14,6 @@ class RecipeController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        return RecipeResource::collection(Recipe::query()->paginate(24));
+        return RecipeResource::collection(Recipe::query()->paginate(6));
     }
 }

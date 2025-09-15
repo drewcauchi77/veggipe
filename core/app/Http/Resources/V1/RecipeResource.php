@@ -22,7 +22,8 @@ class RecipeResource extends JsonResource
             'id' => $recipe->id,
             'attributes' => [
                 'name' => $recipe->name,
-                'description' => $recipe->description
+                'excerpt' => $recipe->excerpt,
+                'image' => $recipe->image
             ]
         ];
     }

@@ -3,17 +3,24 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\V1\RecipeFilter;
 use App\Http\Resources\V1\RecipeResource;
 use App\Models\Recipe;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class RecipeController extends Controller
 {
     /**
+     * @param Request $request
      * @return AnonymousResourceCollection
      */
-    public function index(): AnonymousResourceCollection
+    public function index(Request $request): AnonymousResourceCollection
     {
-        return RecipeResource::collection(Recipe::query()->paginate(6));
+        $filters = new RecipeFilter($request);
+
+        return RecipeResource::collection(
+            Recipe::filter($filters)->paginate($filters->getPerPage())
+        );
     }
 }

@@ -1,3 +1,4 @@
+# CORE (LARAVEL)
 *.log
 .DS_Store
 core/.env
@@ -22,3 +23,15 @@ core/vendor
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# WEBSITE (ASTROJS)
+website/dist/
+website/.astro/
+website/node_modules/
+website/npm-debug.log*
+website/yarn-debug.log*
+website/yarn-error.log*
+website/pnpm-debug.log*
+website/.env
+website/.env.production
+website/.DS_Store

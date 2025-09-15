@@ -9,8 +9,11 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class RecipeController extends Controller
 {
+    /**
+     * @return AnonymousResourceCollection
+     */
     public function index(): AnonymousResourceCollection
     {
-        return RecipeResource::collection(Recipe::all());
+        return RecipeResource::collection(Recipe::query()->paginate(24));
     }
 }

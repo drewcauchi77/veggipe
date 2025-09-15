@@ -146,6 +146,7 @@
       <path value="$PROJECT_DIR$/core/vendor/sebastian/version" />
       <path value="$PROJECT_DIR$/core/vendor/ta-tikoma/phpunit-architecture-test" />
       <path value="$PROJECT_DIR$/core/vendor/laravel/sanctum" />
+      <path value="$PROJECT_DIR$/core/vendor/phpstan/phpstan" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

@@ -9,7 +9,7 @@ defineProps({
 <template>
     <div class="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden">
         <div class="relative overflow-hidden">
-            <img :src="image" :alt="name" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" />
+            <slot name="image" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
 
@@ -22,11 +22,11 @@ defineProps({
                 {{ excerpt }}
             </p>
 
-            <div class="flex items-center justify-between">
-                <button class="text-emerald-600 font-semibold hover:text-emerald-700 transition-colors duration-300">
-                    View Recipe →
-                </button>
-            </div>
+<!--            <div class="flex items-center justify-between">-->
+<!--                <button class="text-emerald-600 font-semibold hover:text-emerald-700 transition-colors duration-300">-->
+<!--                    View Recipe →-->
+<!--                </button>-->
+<!--            </div>-->
         </div>
     </div>
 </template>

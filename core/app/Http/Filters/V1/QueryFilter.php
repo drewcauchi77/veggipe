@@ -3,11 +3,13 @@
 namespace App\Http\Filters\V1;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 abstract class QueryFilter
 {
     protected Request $request;
+    /** @var Builder<Model> */
     protected Builder $builder;
 
     /**
@@ -19,8 +21,9 @@ abstract class QueryFilter
     }
 
     /**
-     * @param Builder $builder
-     * @return Builder
+     * @template T of Model
+     * @param Builder<T> $builder
+     * @return Builder<T>
      */
     public function apply(Builder $builder): Builder
     {
@@ -38,7 +41,7 @@ abstract class QueryFilter
     }
 
     /**
-     * @return array
+     * @return array<mixed>
      */
     public function filters(): array
     {

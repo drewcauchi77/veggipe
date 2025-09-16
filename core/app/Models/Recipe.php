@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
  * @property string $description
  * @property string $image
  * @property-read string $excerpt
- * @method static Builder filter(QueryFilter $filters)
+ * @method static Builder<Recipe> filter(QueryFilter $filters)
  */
 class Recipe extends Model
 {
@@ -38,9 +38,9 @@ class Recipe extends Model
     }
 
     /**
-     * @param Builder $builder
+     * @param Builder<Recipe> $builder
      * @param QueryFilter $filters
-     * @return Builder
+     * @return Builder<Recipe>
      */
     public function scopeFilter(Builder $builder, QueryFilter $filters): Builder
     {

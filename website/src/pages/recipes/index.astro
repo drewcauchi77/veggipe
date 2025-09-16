@@ -1,7 +1,26 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Image from 'astro/components/Image.astro';
+import Layout from '@layouts/Layout.astro';
+import RecipeCard from '@components/recipes/RecipeCard.vue';
+import ShowMore from '@components/recipes/LoadMoreRecipes.vue';
+
+const items = await fetch('http://localhost:8000/api/v1/recipes?itemsperpage=24').then((response) => response.json());
 ---
 
 <Layout>
-    test RECIPES page
+    <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+            {
+                items.data.map((item) => (
+                    <RecipeCard name={item.attributes.name} image={item.attributes.image} excerpt={item.attributes.excerpt}>
+                        <Image slot="image" src={item.attributes.image} alt={item.attributes.name} class="recipe-card-image" width="400" height="300" />
+                    </RecipeCard>
+                ))
+            }
+        </div>
+
+        {
+            items.links.next && <ShowMore client:visible next-page-url={items.links.next} />
+        }
+    </section>
 </Layout>

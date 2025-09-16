@@ -1,8 +1,8 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Image from 'astro/components/Image.astro';
+import Layout from '@layouts/Layout.astro';
 import HeaderTitle from '@components/elements/HeaderTitle.vue';
 import RecipeCard from '@components/recipes/RecipeCard.vue';
-import Image from 'astro/components/Image.astro';
 
 const items = await fetch('http://localhost:8000/api/v1/recipes?itemsperpage=6').then((response) => response.json());
 ---
@@ -18,16 +18,16 @@ const items = await fetch('http://localhost:8000/api/v1/recipes?itemsperpage=6')
 			</span>
 		</HeaderTitle>
 
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
 			{
 				items.data.map((item) => (
 					<RecipeCard name={item.attributes.name} image={item.attributes.image} excerpt={item.attributes.excerpt}>
-						<Image slot="image" src={item.attributes.image} alt={item.attributes.name} class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" width="400" height="300" />
+						<Image slot="image" src={item.attributes.image} alt={item.attributes.name} class="recipe-card-image" width="400" height="300" />
 					</RecipeCard>
 				))
 			}
 		</div>
 
-		<a href="/recipes" class="bg-gradient-to-r w-fit block mx-auto from-emerald-600 to-teal-600 text-white px-12 py-4 rounded-full font-semibold text-lg hover:from-emerald-700 hover:to-teal-700 transition-all duration-300 transform hover:scale-105 shadow-lg">View All Recipes</a>
+		<a href="/recipes" class="btn-primary">View All Recipes</a>
 	</section>
 </Layout>

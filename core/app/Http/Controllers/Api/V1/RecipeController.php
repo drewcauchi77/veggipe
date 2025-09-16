@@ -19,8 +19,10 @@ class RecipeController extends Controller
     {
         $filters = new RecipeFilter($request);
 
-        return RecipeResource::collection(
-            Recipe::filter($filters)->paginate($filters->getPerPage())
-        );
+        $recipes = Recipe::filter($filters)->paginate($filters->getPerPage());
+
+        $recipes->appends($request->query());
+
+        return RecipeResource::collection($recipes);
     }
 }

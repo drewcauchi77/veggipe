@@ -7,22 +7,22 @@ use Illuminate\Http\JsonResponse;
 trait ApiResponses {
 
     /**
-     * @param $message
-     * @param array $data
+     * @param string $message
+     * @param array<mixed> $data
      * @return JsonResponse
      */
-    protected function ok($message, array $data = []): JsonResponse
+    protected function ok(string $message, array $data = []): JsonResponse
     {
         return $this->success($message, $data, 200);
     }
 
     /**
-     * @param $message
-     * @param array $data
+     * @param string $message
+     * @param array<mixed> $data
      * @param int $statusCode
      * @return JsonResponse
      */
-    protected function success($message, array $data = [], int $statusCode = 200): JsonResponse
+    protected function success(string $message, array $data = [], int $statusCode = 200): JsonResponse
     {
         return response()->json([
             'data' => $data,
@@ -32,23 +32,23 @@ trait ApiResponses {
     }
 
     /**
-     * @param $message
-     * @param $statusCode
+     * @param array<mixed> $errors
+     * @param int $statusCode
      * @return JsonResponse
      */
-    protected function error($message, $statusCode): JsonResponse
+    protected function error(array $errors, int $statusCode): JsonResponse
     {
         return response()->json([
-            'message' => $message,
+            'errors' => $errors,
             'status' => $statusCode
         ], $statusCode);
     }
 
     /**
-     * @param $message
+     * @param string $message
      * @return JsonResponse
      */
-    protected function notAuthorised($message): JsonResponse
+    protected function notAuthorised(string $message): JsonResponse
     {
         return $this->error([
             'type' => 'Unauthorised',

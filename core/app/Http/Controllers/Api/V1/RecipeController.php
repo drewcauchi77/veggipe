@@ -26,7 +26,7 @@ class RecipeController extends ApiController
         );
     }
 
-    public function store(StoreRecipeRequest $request)
+    public function store(StoreRecipeRequest $request): void
     {
 
     }

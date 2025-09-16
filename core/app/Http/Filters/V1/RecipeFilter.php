@@ -9,10 +9,10 @@ class RecipeFilter extends QueryFilter
     protected int $perPage;
 
     /**
-     * @param string $value
+     * @param string|null $value
      * @return void
      */
-    public function itemsPerPage(string $value): void
+    public function itemsPerPage(?string $value): void
     {
         $perPage = (int) $value;
 

@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeaderTitle from '@components/elements/HeaderTitle.vue';
+import RecipeCard from '@components/recipes/RecipeCard.vue';
+
+const items = await fetch('http://localhost:8000/api/v1/recipes?itemsperpage=6').then((response) => response.json());
+---
+
+<Layout>
+	<section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+		<HeaderTitle>
+			<span slot="title">
+				Our Favourite <span class="text-emerald-600">Recipes</span>
+			</span>
+			<span slot="subtitle">
+				Handpicked recipes that will transform your kitchen into a gourmet destination
+			</span>
+		</HeaderTitle>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+			{
+				items.data.map((item) => (
+					<RecipeCard name={item.attributes.name} image={item.attributes.image} excerpt={item.attributes.excerpt} />
+				))
+			}
+		</div>
+	</section>
+	<a href="/recipes">Recipes</a>
+</Layout>

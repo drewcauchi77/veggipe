@@ -2,27 +2,32 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
 use App\Http\Filters\V1\RecipeFilter;
+use App\Http\Requests\Api\V1\StoreRecipeRequest;
 use App\Http\Resources\V1\RecipeResource;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class RecipeController extends Controller
+class RecipeController extends ApiController
 {
     /**
      * @param Request $request
-     * @return AnonymousResourceCollection
+     * @return ResourceCollection
      */
-    public function index(Request $request): AnonymousResourceCollection
+    public function index(Request $request): ResourceCollection
     {
         $filters = new RecipeFilter($request);
 
-        $recipes = Recipe::filter($filters)->paginate($filters->getPerPage());
+        return RecipeResource::collection(
+            Recipe::filter($filters)
+                ->paginate($filters->getPerPage())
+                ->appends($request->query())
+        );
+    }
 
-        $recipes->appends($request->query());
+    public function store(StoreRecipeRequest $request)
+    {
 
-        return RecipeResource::collection($recipes);
     }
 }

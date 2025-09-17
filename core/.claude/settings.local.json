@@ -1,11 +1,16 @@
 {
+  "permissions": {
+    "allow": [
+      "mcp__laravel-boost__list-routes",
+      "mcp__laravel-boost__last-error",
+      "mcp__laravel-boost__tinker",
+      "Bash(curl:*)",
+      "Bash(php artisan config:clear:*)",
+      "Bash(php artisan:*)"
+    ]
+  },
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "laravel-boost"
-  ],
-  "permissions": {
-    "allow": [
-      "mcp__laravel-boost__list-routes"
-    ]
-  }
+  ]
 }

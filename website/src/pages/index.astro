@@ -3,8 +3,10 @@ import Image from 'astro/components/Image.astro';
 import Layout from '@layouts/Layout.astro';
 import HeaderTitle from '@components/elements/HeaderTitle.vue';
 import RecipeCard from '@components/recipes/RecipeCard.vue';
+import { getRecipes } from '../services/api.service';
+import { CORE_API_TOKEN } from 'astro:env/server';
 
-const items = await fetch('http://localhost:8000/api/v1/recipes?itemsperpage=6').then((response) => response.json());
+const items = await getRecipes(6, CORE_API_TOKEN);
 ---
 
 <Layout>
@@ -18,16 +20,22 @@ const items = await fetch('http://localhost:8000/api/v1/recipes?itemsperpage=6')
 			</span>
 		</HeaderTitle>
 
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-			{
-				items.data.map((item) => (
-					<RecipeCard name={item.attributes.name} image={item.attributes.image} excerpt={item.attributes.excerpt}>
-						<Image slot="image" src={item.attributes.image} alt={item.attributes.name} class="recipe-card-image" width="400" height="300" />
-					</RecipeCard>
-				))
-			}
-		</div>
+		{
+			items?.data?.length > 0 ? (
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+					{
+						items.data.map((item) => (
+							<RecipeCard name={item.attributes.name} image={item.attributes.image} excerpt={item.attributes.excerpt}>
+								<Image slot="image" src={item.attributes.image} alt={item.attributes.name} class="recipe-card-image" width="400" height="300" />
+							</RecipeCard>
+						))
+					}
+				</div>
 
-		<a href="/recipes" class="btn-primary">View All Recipes</a>
+				<a href="/recipes" class="btn-primary">View All Recipes</a>
+			) : (
+				<p class="text-xl text-slate-600 max-w-2xl mx-auto text-center mb-12">No recipes found.</p>
+			)
+		}
 	</section>
 </Layout>

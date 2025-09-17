@@ -2,6 +2,7 @@
 import { ref, computed } from "vue";
 import RecipeCard from "@components/recipes/RecipeCard.vue";
 import LoadingIcon from "@components/icons/LoadingIcon.vue";
+import {CLIENT_CORE_API_TOKEN} from "astro:env/client";
 
 const isFirstLoad = ref(true);
 const loadedItems = ref([])
@@ -26,16 +27,20 @@ const loadMore = async () => {
     isLoading.value = true;
 
     try {
-        const response = await fetch(nextUrl.value);
+        const response = await fetch(nextUrl.value, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${CLIENT_CORE_API_TOKEN}`
+            },
+        });
 
         if (!response.ok) console.error(`HTTP error! status: ${response.status}`);
 
         const data = await response.json();
         pageItems.value = data;
 
-        if (data.data?.length > 0) {
-            loadedItems.value = [...loadedItems.value, ...data.data];
-        }
+        if (data.data?.length > 0) loadedItems.value = [...loadedItems.value, ...data.data];
 
         isFirstLoad.value = false;
     } catch (err) {

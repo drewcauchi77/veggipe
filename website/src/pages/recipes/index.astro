@@ -15,9 +15,9 @@ const items = await getRecipes(24, CORE_API_TOKEN);
             items?.data?.length > 0 && (
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
                     {
-                        items.data.map((item) => (
+                        items.data.map((item, index) => (
                             <RecipeCard name={item.attributes.name} image={item.attributes.image} excerpt={item.attributes.excerpt}>
-                                <Image slot="image" src={item.attributes.image} alt={item.attributes.name} class="recipe-card-image" width="400" height="300" />
+                                <Image slot="image" src={item.attributes.image} alt={item.attributes.name} class="recipe-card-image" width="400" height="300" loading={index < 6 ? 'eager' : 'lazy'} />
                             </RecipeCard>
                         ))
                     }
